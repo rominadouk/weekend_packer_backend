@@ -66,6 +66,28 @@ app.put('/items/:id', async (req, res) => {
     }
 });
 
+// PULLING FROM WEATHER API
+const API_KEY = process.env.WEATHER_API_KEY
+
+//use params to get the search query
+//send a req.body to the backend. save as variables and template literals in query
+//Need country, location
+
+//take date, convert it to string. If day MM/DD === Friday, OR Saturday, OR sunday then send that data as a reponse. maybe use .filter()? 
+//example query https://api.weatherapi.com/v1/forecast.json?key={KEY}&q=Sacramento&California&UnitedStatesofAmerica&days=10 (city first)
+
+app.post('/forecast', async (req, res) => {
+    const { city, state, country } = req.body;
+    try {
+        const forecast = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&${country}&${state}&days=10`)
+        res.json(forecast.data)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+
+
 
 mongoose.connect(URI)
 mongoose.connection.once('open', () => {
