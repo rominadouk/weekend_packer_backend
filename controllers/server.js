@@ -84,14 +84,14 @@ const API_KEY = process.env.WEATHER_API_KEY
 //example query https://api.weatherapi.com/v1/forecast.json?key={KEY}&q=Sacramento&California&UnitedStatesofAmerica&days=10 (city first)
 
 app.post('/forecast', async (req, res) => {
-    const { city, state, country } = req.body;
+    const { city, state } = req.body;
     try {
-        const forecast = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&${country}&${state}&days=10`)
+        const forecast = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&unitedstatesofamerica&${state}&days=10`)
         res.json(forecast.data)
     } catch (err) {
         console.log(err)
     }
-})
+});
 
 
 
